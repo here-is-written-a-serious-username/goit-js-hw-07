@@ -15,13 +15,13 @@ function createGalleryMarkup() {
 
     function imgMarkupMaker({ preview, original, description }) {
         return (
-            `<a class="gallery__item" href="${original}">
+            `<li><a class="gallery__item" href="${original}">
                 <img 
                 class="gallery__image" 
                 src= "${preview}"
                 alt= "${description}"
                 />
-            </a>`
+            </a></li>`
         );
     }
 
@@ -31,4 +31,5 @@ function createGalleryMarkup() {
 new SimpleLightbox('.gallery a', { 
     captionsData: 'alt',
     captionDelay: 250,
+    captionPosition: 'bottom',
  });

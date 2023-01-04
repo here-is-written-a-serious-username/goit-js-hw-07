@@ -37,17 +37,32 @@ function onImgClick(event) {
 
     event.preventDefault();
 
-    const instance = basicLightbox.create(`<img src= "${event.target.dataset.source}"/>`);
+    const instance = basicLightbox.create(`<img src= "${event.target.dataset.source}"/>`,
+        {
+            onShow: (instance) => { document.addEventListener("keydown", onPress); },
 
-    instance.show(() => {
-        document.addEventListener("keydown", onPress);
+            onClose: (instance) => { document.removeEventListener("keydown", onPress); }
 
-        function onPress(event) {
-            if (event.code !== "Escape") {
-                return;
-            }
-            instance.close( () => document.removeEventListener("keydown", onPress));
+        });
+
+    // instance.show(() => {
+    //     document.addEventListener("keydown", onPress);
+
+    //     function onPress(event) {
+    //         if (event.code !== "Escape") {
+    //             return;
+    //         }
+    //         instance.close(() => document.removeEventListener("keydown", onPress));
+    //     }
+    // });
+
+    instance.show();
+
+    function onPress(event) {
+        if (event.code !== "Escape") {
+            return;
         }
-    });
+        instance.close();
+    }
 
 }
